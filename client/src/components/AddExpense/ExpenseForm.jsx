@@ -103,7 +103,7 @@ const ExpenseForm = () => {
             <MultiSelect
               w="full"
               mt={10}
-              data={categories}
+              data={allCategory}
               label="Select a Category"
               placeholder="Select a category or create a new one"
               searchable
