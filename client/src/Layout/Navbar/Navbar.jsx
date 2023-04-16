@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { GiExpense } from "react-icons/gi";
+import userIcon from "../../assets/images/user.png";
 
 const Navbar = () => {
   return (
@@ -29,7 +30,7 @@ const Navbar = () => {
             </button>
             <Link to="/" className="flex ml-2 md:mr-24 items-center gap-3">
               <GiExpense className="flex-shrink-0 w-8 h-8 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-              <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
+              <span className="self-center text-2xl font-bold sm:text-2xl text-gray-500 whitespace-nowrap dark:text-white ">
                 Expense Tracker App
               </span>
             </Link>
@@ -45,7 +46,7 @@ const Navbar = () => {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="w-8 h-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1542732270-0f98f23a8d9c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+                    src={userIcon}
                     alt="user_photo"
                   />
                 </button>
