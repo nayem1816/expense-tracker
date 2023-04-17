@@ -1,7 +1,15 @@
 const myExpense = require("../data/data.js");
 
 exports.getBalanceService = async () => {
-  return myExpense.currentBalance;
+  let totalExpense = 0;
+
+  myExpense.expense.forEach((item) => {
+    totalExpense = totalExpense + item.amount;
+  });
+
+  let currentBalance = myExpense.currentBalance - totalExpense;
+
+  return currentBalance;
 };
 
 exports.addBalanceService = async (data) => {

@@ -47,7 +47,9 @@ const ExpenseList = () => {
             </thead>
             <tbody>
               {expense.map((item) => (
-                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                <tr
+                  key={item.id}
+                  className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                   {/* <td className="pl-6 py-4">{item.id}</td> */}
                   <th
                     scope="row"

@@ -49,5 +49,43 @@ exports.getExpenseService = async () => {
     };
   });
 
+  const today = new Date(); // get today's date
+  const twoDaysAgo = new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000); // subtract 2 days' worth of milliseconds from today's date
+
+  const lastTwoDaysExpenses = expenseData.filter((expense) => {
+    const expenseDate = new Date(expense.date);
+    return expenseDate >= twoDaysAgo && expenseDate <= today;
+  });
+
+  console.log(lastTwoDaysExpenses);
+
   return expenseData;
+};
+
+exports.getWeaklyExpenseService = async () => {
+  const expenseData = myExpense.expense.map((item) => {
+    const category = myExpense.category.find(
+      (category) => category.id === item.category
+    );
+    return {
+      ...item,
+      category: category.value,
+    };
+  });
+
+  const currentDate = new Date();
+  const sevenDaysAgo = new Date(
+    currentDate.getTime() - 7 * 24 * 60 * 60 * 1000
+  );
+
+  const expensesWithinLastSevenDays = expenseData.filter(
+    (exp) => new Date(exp.date) >= sevenDaysAgo
+  );
+
+  const totalExpenseAmount = expensesWithinLastSevenDays.reduce(
+    (total, exp) => total + exp.amount,
+    0
+  );
+
+  return totalExpenseAmount;
 };

@@ -8,4 +8,6 @@ router
   .post(ExpenseController.addExpense)
   .get(ExpenseController.getExpense);
 
+router.route("/weakly").get(ExpenseController.getWeaklyExpense);
+
 module.exports = router;

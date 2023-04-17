@@ -2,12 +2,19 @@ import React, { useEffect, useState } from "react";
 
 const DashboardTop = () => {
   const [currentBalance, setCurrentBalance] = useState(0);
+  const [weaklyExpense, setWeaklyExpense] = useState(0);
 
   useEffect(() => {
     fetch("http://localhost:8080/api/v1/balance")
       .then((res) => res.json())
       .then((data) => {
         setCurrentBalance(data.currentBalance);
+      });
+
+    fetch("http://localhost:8080/api/v1/expense/weakly")
+      .then((res) => res.json())
+      .then((data) => {
+        setWeaklyExpense(data.weaklyCost);
       });
   }, []);
 
@@ -20,7 +27,7 @@ const DashboardTop = () => {
         </div>
         <div className="expense border p-5 text-center rounded">
           <h2 className="text-3xl font-semibold mb-3">Weakly Expense</h2>
-          <h3 className="text-xl font-semibold">$0.00</h3>
+          <h3 className="text-xl font-semibold">${weaklyExpense}</h3>
         </div>
       </div>
     </div>
