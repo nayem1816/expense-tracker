@@ -5,3 +5,28 @@
 .select-input-style input:focus {
   box-shadow: none;
 }
+
+.mantine-MultiSelect-searchInput {
+  display: block;
+  background-color: #f9fafb;
+  color: #111827;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  border-color: #d1d5db;
+}
+
+.mantine-MultiSelect-input {
+  display: block;
+  background-color: #f9fafb;
+  color: #111827;
+  padding: 3px 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  border-color: #d1d5db;
+}

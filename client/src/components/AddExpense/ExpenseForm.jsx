@@ -2,22 +2,11 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Button, Divider, MultiSelect, Text, TextInput } from "@mantine/core";
-
-const categories = [
-  { value: "Food", label: "Food", isused: "false" },
-  { value: "Transport", label: "Transport", isused: "false" },
-  { value: "Shopping", label: "Shopping", isused: "false" },
-  {
-    value: "Entertainment",
-    label: "Entertainment",
-    isused: "false",
-  },
-];
+import { MultiSelect } from "@mantine/core";
 
 const ExpenseForm = () => {
   const [category, setCategory] = React.useState([]);
-  const [allCategory, setAllCategory] = React.useState(categories);
+  const [allCategory, setAllCategory] = React.useState([]);
   const navigate = useNavigate();
   const {
     register,
@@ -26,36 +15,50 @@ const ExpenseForm = () => {
   } = useForm();
 
   useEffect(() => {
-    console.log(category);
-    console.log(allCategory);
-  }, [allCategory, category]);
-
-  console.log(category);
+    fetch("http://localhost:8080/api/v1/category")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          setAllCategory(data.data);
+        }
+      });
+  }, []);
 
   const onSubmit = (data) => {
-    console.log(data);
+    const expenseData = {
+      category: {
+        value: category[0],
+        label: category[0],
+        isused: "false",
+      },
+      expense: {
+        name: data.name,
+        amount: data.amount,
+        date: new Date().toISOString().slice(0, 10),
+      },
+    };
 
-    // fetch("http://localhost:8080/api/v1/expense", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.status === "success") {
-    //       toast.success(data.message, {
-    //         position: "top-right",
-    //         autoClose: 1000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //       });
-    //       navigate("/");
-    //     }
-    //   });
+    fetch("http://localhost:8080/api/v1/expense", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(expenseData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status === "success") {
+          toast.success(data.message, {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+          });
+          navigate("/");
+        }
+      });
   };
   return (
     <div>
@@ -104,7 +107,7 @@ const ExpenseForm = () => {
               w="full"
               mt={10}
               data={allCategory}
-              label="Select a Category"
+              label="Select/Add a Category"
               placeholder="Select a category or create a new one"
               searchable
               creatable

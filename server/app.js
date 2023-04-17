@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const BalanceRoute = require("./src/routes/Balance.route");
+const CategoryRoute = require("./src/routes/Category.route");
+const ExpenseRoute = require("./src/routes/Expense.route");
 
 const app = express();
 
@@ -15,5 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/balance", BalanceRoute);
+app.use("/api/v1/category", CategoryRoute);
+app.use("/api/v1/expense", ExpenseRoute);
 
 module.exports = app;
